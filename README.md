@@ -1,5 +1,7 @@
 # Chatu
 
+### Note that this is the first time I am using Lit and Elastic Search.
+
 ## Setup
 
 ```bash
