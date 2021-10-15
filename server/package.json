@@ -4,9 +4,11 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "prpl-server --root dist/ --config prpl.config.json --host 0.0.0.0 --https-redirect --bot-proxy https://render-tron.appspot.com/render"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "dependencies": {
-    "prpl-server": "^1.4.2"
+    "express": "^4.17.1",
+    "socket.io": "^4.3.0"
   }
 }
