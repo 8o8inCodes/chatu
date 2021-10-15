@@ -2,19 +2,32 @@ html,
 body,
 app-index {
   margin: 0;
+  color: #f7f9fb;
   background-color: #0a0d14;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1b1b1b00;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(12, 12, 12);
+  border-radius: 5px;
 }
 
 /** Presets */
 body,
 :root {
-  --fc-primary: #0084ff;
-  --fc-secondary: #00d894;
-  --fc-gold: #fad988;
-  --fc-red: #ff9fa1;
-  --fc-turquoise: #8af6eb;
-  --fc-indigo: #a0a4f6;
-  --fc-pink: #e78ff8;
+  --fc-primary: #101520;
+  --fc-secondary: #2a3753;
+  --fc-contrast: #07090e;
   --fc-text: #f7f9fb;
 
   font-family: 'Source Sans Pro', sans-serif;
@@ -22,4 +35,43 @@ body,
 
 h1 {
   color: var(--fc-text);
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 90vh;
+  margin: auto;
+  margin-top: 15px;
+  padding: 20px;
+  background-color: var(--fc-primary);
+  border-radius: 20px;
+}
+
+.chatArea {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.chatInputContainer {
+  display: flex;
+}
+
+.chatInput {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  color: var(--fc-text);
+  font-size: 1em;
+  background-color: var(--fc-contrast);
+  border: solid;
+  border-color: #2a3753;
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
