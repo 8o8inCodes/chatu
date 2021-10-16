@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import React, { useState, useEffect, useRef } from 'react';
+import { io } from 'socket.io-client';
 import './App.css';
+import { ChatArea, ChatInput } from './components';
+import useStateRef from './utils/useStateRef';
 
 function App() {
+  const [username, setUsername] = useState("Bob");
+  const [messages, setMessages, ref] = useStateRef([]);
+  const socket = useRef()
+
+  const handleChat = message => {
+    let msgs = ref.current
+    setMessages([...msgs,
+        message
+    ]);
+  };
+
+  const sendMessage = message => {
+    socket.current.emit('message', {
+      author: username,
+      nameColor: "red",
+      message
+    });
+  }
+
+  useEffect(() => {
+    socket.current = io();
+    socket.current.on('message', handleChat)
+    return () => {
+      socket.current.close();
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="chatContainer">
+      <ChatArea messages={messages} />
+      <ChatInput onSend={sendMessage} onNameChange={newName => setUsername(newName)}/>
     </div>
   );
 }
