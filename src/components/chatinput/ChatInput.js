@@ -12,7 +12,8 @@ const ChatInput = ({onSend, onNameChange}) => {
 
     useEffect(() => {
         onNameChange(nameValue);
-    }, [nameValue])
+    }, [nameValue, onNameChange])
+    
     return (
         <div className="chatInputContainer">
             <input
@@ -22,7 +23,6 @@ const ChatInput = ({onSend, onNameChange}) => {
                 value={nameValue}
                 onChange={e => setNameValue(e.target.value)}
             />
-
             <input
                 className="chatInput" 
                 type="text" 
