@@ -1,4 +1,5 @@
 import { html } from 'lit';
+import { io } from 'socket.io-client';
 import { Logo, Feature } from '../components';
 import { urlForName } from '../router';
 import { PageElement } from '../helpers/page-element';
@@ -8,6 +9,7 @@ import { ChatInput } from '../components';
 export class PageHome extends PageElement {
   static properties = {
     messages: { type: Array }
+    // socket: { type: Socket }
   };
 
   constructor() {
@@ -18,19 +20,19 @@ export class PageHome extends PageElement {
         nameColor: 'red',
         message: 'Hello people!',
         badges: []
-      },
-      {
-        author: 'Bob',
-        nameColor: 'red',
-        message: 'How are you?',
-        badges: []
       }
     ];
-    for (let i = 0; i < 3; i++) {
-      this.messages = [...this.messages, ...this.messages];
-    }
-    // Initiate socket connection
-    console.log(this.messages);
+
+    // this.socket = io();
+
+    // this.socket.on('message', this.addMessage);
+  }
+
+  addMessage(msg) {
+    this.messages = {
+      ...this.messages,
+      msg
+    };
   }
 
   render() {
