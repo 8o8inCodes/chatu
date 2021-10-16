@@ -1,32 +1,25 @@
-import { LitElement, html, css } from './components/base';
-import { Logo } from './components';
+import logo from './logo.svg';
+import './App.css';
 
-import config from './config';
-
-import { attachRouter, urlForName } from './router';
-// visit https://components.forter.dev for more
-import '@forter/checkbox';
-import '@forter/button';
-import '@forter/radio';
-
-import 'pwa-helper-components/pwa-install-button.js';
-import 'pwa-helper-components/pwa-update-available.js';
-
-export class App extends LitElement {
-  render() {
-    return html`
-      <!-- The main content is added / removed dynamically by the router -->
-      <main role="main"></main>
-    `;
-  }
-
-  createRenderRoot() {
-    return this;
-  }
-
-  firstUpdated() {
-    attachRouter(this.querySelector('main'));
-  }
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
-customElements.define('app-index', App);
+export default App;
