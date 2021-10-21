@@ -11,10 +11,10 @@ export function Message({
   message
 }) {
   return html`
-    <div class="messageContainer">
+    <div className="messageContainer">
       <p>
-        <label style="color: ${message.nameColor}">${message.author} </label>:
-        ${message.message}
+        <label style="color: ${message.nameColor};">${message.author} </label>:
+        <label>${' '}${message.message}</label>
       </p>
     </div>
   `;
