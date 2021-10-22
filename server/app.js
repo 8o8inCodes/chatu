@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 const express = require('express');
 const socketServer = require('socket.io');
 const setupChatEvents = require('./chatEvents.js');
