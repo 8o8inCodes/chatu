@@ -82,13 +82,44 @@ input {
 }
 
 .messageContainer p {
+  position: relative;
   display: inline-block;
   max-width: 300px;
   margin: 0;
   margin-bottom: -3px;
   padding: 8px;
+  overflow-wrap: break-word;
   background: rgb(1 137 217);
   border-radius: 7px;
+  animation: slideRight 0.2s ease-in-out;
+}
+
+@keyframes slideLeft {
+  0% {
+    right: -100%;
+  }
+
+  60% {
+    right: 10px;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    left: -100%;
+  }
+
+  60% {
+    left: 10px;
+  }
+
+  100% {
+    left: 0;
+  }
 }
 
 .selfMessage {
@@ -98,6 +129,7 @@ input {
 
 .selfMessage p {
   background: rgb(1 217 117);
+  animation: slideLeft 0.2s ease-in-out;
 }
 
 .messageGroup {
@@ -106,4 +138,8 @@ input {
 
   /* filter: blur(10px) contrast(18);
   mix-blend-mode: screen; */
+}
+
+.messageName {
+  font-weight: bold;
 }

@@ -44,6 +44,9 @@ function PageHome() {
   };
 
   useEffect(() => {
+    // Temoporary hardcoded port, inorder for it to connect to the real running server instead of
+    // the web-dev-server. This would've been easier to do in webpack dev server since they provide
+    // an option to setup a proxy. In web-dev-server the socket proxy doesn't work. Requires further research.
     socket.current = io(':8080');
     socket.current.on('message', handleChat);
     return () => {
