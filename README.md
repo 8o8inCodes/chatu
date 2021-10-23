@@ -4,10 +4,37 @@
 
 ## Setup
 
-```bash
-npm install
-```
+Install client requirements
 
 ```bash
-npm start
+npm i
 ```
+
+Build client:
+
+```bash
+npm run build
+```
+
+Install server requirements
+
+```bash
+cd server
+npm i
+```
+
+Start Elastic server (while being in server folder):
+(Using docker-compose in order to contain everything in the future, including client (web-dev-server) and the actual server)
+
+```bash
+docker-compose up
+```
+
+Open up new terminal and start the server
+
+```bash
+cd ./server/
+npm run server
+```
+
+Enter http://localhost:8080/
