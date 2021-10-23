@@ -4,9 +4,8 @@ import { useState, useEffect } from 'haunted';
 /**
  * Draw a feature we did once by name.
  */
-export function ChatInput({ onNameChange, onSend }) {
+export function ChatInput({ onNameChange, onSend, username }) {
   const [value, setValue] = useState('');
-  const [nameValue, setNameValue] = useState('Guest');
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       onSend(value);
@@ -14,18 +13,14 @@ export function ChatInput({ onNameChange, onSend }) {
     }
   };
 
-  useEffect(() => {
-    onNameChange(nameValue);
-  }, [nameValue, onNameChange]);
-
   return html`
     <div class="chatInputContainer">
       <input
         class="nameInput"
         type="text"
         placeholder="Name"
-        .value=${nameValue}
-        @input=${(e) => setNameValue(e.target.value)}
+        .value=${username}
+        @input=${(e) => onNameChange(e.target.value)}
       />
       <input
         class="chatInput"

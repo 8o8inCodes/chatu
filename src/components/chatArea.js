@@ -10,13 +10,13 @@ export function ChatArea({
    * the feature name which produce link and image.
    * @type {Array}
    */
-  messages
+  messageGroups
 }) {
   let bottomRef = document.querySelector('#bottomRef');
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messageGroups]);
 
   const scrollToBottom = () => {
     if (!bottomRef) return;
@@ -27,7 +27,13 @@ export function ChatArea({
   };
   return html`
     <div class="chatArea">
-      ${messages.map((message) => Message({ message }))}
+      ${messageGroups.map(
+        (messages) => html`
+          <div class="messageGroup">
+            ${messages.map((message) => Message({ message }))}
+          </div>
+        `
+      )}
       <div id="bottomRef" class="list-bottom"></div>
     </div>
   `;

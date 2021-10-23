@@ -80,3 +80,28 @@ input {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.messageContainer p {
+  display: inline-block;
+  max-width: 300px;
+  margin: 0;
+  padding: 5px;
+  background: rgb(1 137 217);
+  border-radius: 7px;
+}
+
+.selfMessage {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.selfMessage p {
+  background: rgb(1 217 117);
+}
+
+.messageGroup {
+  margin: 5px;
+
+  /* filter: blur(10px) contrast(18);
+  mix-blend-mode: screen; */
+}
