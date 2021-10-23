@@ -1,6 +1,6 @@
 # Chatu
 
-### Note that this is the first time I am using Lit and Elastic Search.
+### Note that this is the first time I am using Lit and Elastic Search. Also for this project I did not use typescript to save time.
 
 ## Setup
 
