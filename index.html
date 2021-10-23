@@ -10,7 +10,6 @@
     <base href="/" />
 
     <script type="text/javascript">
-
       // Single Page Apps for GitHub Pages
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
@@ -21,10 +20,12 @@
       // When the single page app is loaded further down in this file,
       // the correct url will be waiting in the browser's history for
       // the single page app to route accordingly.
-      const [, base = '', preview = '' ] = location.pathname.split('/');
+      const [, base = '', preview = ''] = location.pathname.split('/');
 
       if (preview.includes('deploy-preview')) {
-        document.querySelector('base').setAttribute('href', `/${base}/${preview}/`);
+        document
+          .querySelector('base')
+          .setAttribute('href', `/${base}/${preview}/`);
       } else if (location.href.includes('github.io')) {
         document.querySelector('base').setAttribute('href', `/${base}/`);
       }
@@ -88,5 +89,21 @@
 
     <!-- End Single Page Apps for GitHub Pages -->
     <script type="module" src="src/app.js"></script>
+
+    <!-- Goo filter found on https://codepen.io/ainalem/pen/eYmGLyp -->
+    <svg class="gegga" style="display: none">
+      <defs>
+        <filter id="gegga">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -10"
+            result="inreGegga"
+          />
+          <feComposite in="SourceGraphic" in2="inreGegga" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
   </body>
 </html>

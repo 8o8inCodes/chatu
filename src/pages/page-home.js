@@ -44,7 +44,7 @@ function PageHome() {
   };
 
   useEffect(() => {
-    socket.current = io();
+    socket.current = io(':8080');
     socket.current.on('message', handleChat);
     return () => {
       socket.current.close();
