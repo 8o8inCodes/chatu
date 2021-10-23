@@ -5,6 +5,7 @@ class ChatuBotu {
     this.name = name;
     this.color = color;
     this.waitingForAnswer = null;
+    this.ready = false;
 
     this.client = new elasticsearch.Client({
       host: process.env.ELASTICSEARCH_HOST,
@@ -14,7 +15,7 @@ class ChatuBotu {
       {
         requestTimeout: 1000
       },
-      function (error) {
+      (error) => {
         if (error) {
           console.trace('elasticsearch cluster is down!');
         } else {
@@ -22,9 +23,32 @@ class ChatuBotu {
         }
       }
     );
+
+    this.setupDataset();
+  }
+
+  async setupDataset() {
+    try {
+      await this.client.cat.indices({
+        index: 'questions',
+        format: 'json'
+      });
+    } catch (error) {
+      try {
+        console.log("index doesn't exist, creating...");
+        await this.client.index({
+          index: 'questions',
+          body: {}
+        });
+        console.log('index "questions" created successfully.');
+      } catch (creationError) {
+        console.log(creationError);
+      }
+    }
   }
 
   async addAnswer(answer) {
+    if (!ready) return;
     try {
       await this.client.index({
         index: 'questions',
@@ -40,6 +64,7 @@ class ChatuBotu {
   }
 
   async findPossibleAnswer(question) {
+    if (!ready) return;
     try {
       const res = await this.client.search({
         index: 'questions',
