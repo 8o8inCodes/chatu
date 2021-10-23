@@ -34,7 +34,7 @@ Open up new terminal and start the server
 
 ```bash
 cd ./server/
-npm run server
+npm run dev
 ```
 
 Enter http://localhost:8080/
