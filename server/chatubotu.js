@@ -1,7 +1,8 @@
 const elasticsearch = require('elasticsearch');
+const botData = require('./BotDataSet/questions.json');
 
 class ChatuBotu {
-  constructor(name = 'ChatuBotu', color = 'Green') {
+  constructor(name = 'BobThePirate', color = 'red') {
     this.name = name;
     this.color = color;
     this.waitingForAnswer = null;
@@ -41,14 +42,20 @@ class ChatuBotu {
           body: {}
         });
         console.log('index "questions" created successfully.');
+        const body = botData.flatMap((doc) => [
+          { index: { _index: 'questions' } },
+          doc
+        ]);
+        await this.client.bulk({ refresh: true, body });
       } catch (creationError) {
         console.log(creationError);
       }
     }
+    this.ready = true;
   }
 
   async addAnswer(answer) {
-    if (!ready) return;
+    if (!this.ready) return;
     try {
       await this.client.index({
         index: 'questions',
@@ -64,7 +71,7 @@ class ChatuBotu {
   }
 
   async findPossibleAnswer(question) {
-    if (!ready) return;
+    if (!this.ready) return;
     try {
       const res = await this.client.search({
         index: 'questions',
@@ -82,7 +89,11 @@ class ChatuBotu {
         this.waitingForAnswer = question;
         return 'Waiting for an answer..';
       }
-      return res.hits.hits[0]._source.answer;
+      let answer = res.hits.hits[0]._source.answer;
+      if (answer instanceof Array) {
+        answer = answer[Math.floor(Math.random() * answer.length)];
+      }
+      return answer;
     } catch (err) {
       console.log(err);
     }

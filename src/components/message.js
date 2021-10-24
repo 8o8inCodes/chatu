@@ -19,9 +19,11 @@ export function Message({
     <div class=${className}>
       <p>
         ${message.author &&
-        html`<label class="messageName" style="color: ${message.nameColor};"
-            >${message.author} </label
-          >:${' '}`}
+        html`
+          <label class="messageName" style="color: ${message.nameColor};">
+            ${message.author}
+          </label>
+        `}
         <label>${message.message}</label>
       </p>
     </div>
