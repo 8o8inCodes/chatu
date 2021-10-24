@@ -103,6 +103,10 @@ input {
   animation: slideRight 0.2s ease-in-out;
 }
 
+.messageContainer p label {
+  display: block;
+}
+
 @keyframes slideLeft {
   0% {
     right: -100%;
