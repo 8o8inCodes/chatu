@@ -156,3 +156,8 @@ input {
 .messageName {
   font-weight: bold;
 }
+
+.mention {
+  color: #ffe8e8;
+  font-weight: bold;
+}

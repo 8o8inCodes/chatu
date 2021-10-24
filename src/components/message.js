@@ -24,7 +24,14 @@ export function Message({
             ${message.author}
           </label>
         `}
-        <label>${message.message}</label>
+        <label>
+          ${message.message.split(' ').map((word) => {
+            if (word.startsWith('@')) {
+              return html`<span class="mention">${word} </span>`;
+            }
+            return `${word} `;
+          })}
+        </label>
       </p>
     </div>
   `;

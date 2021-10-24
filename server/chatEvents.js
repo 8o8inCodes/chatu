@@ -11,7 +11,10 @@ const setupChatEvents = (io) => {
         id: shortid.generate()
       });
 
-      if (message.message.trim().endsWith('?')) {
+      if (
+        message.message.trim().endsWith('?') ||
+        message.message.includes(`@${bot.name}`)
+      ) {
         const answer = await bot.findPossibleAnswer(message.message);
         if (answer) {
           io.emit('message', {
