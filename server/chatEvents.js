@@ -15,7 +15,8 @@ const setupChatEvents = (io) => {
         message.message.trim().endsWith('?') ||
         message.message.includes(`@${bot.name}`)
       ) {
-        const answer = await bot.findPossibleAnswer(message.message);
+        const parsedMessage = message.message.replace(/\B@\w+/g, '').trim();
+        const answer = await bot.findPossibleAnswer(parsedMessage);
         if (answer) {
           io.emit('message', {
             id: shortid.generate(),
