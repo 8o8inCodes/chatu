@@ -9,18 +9,17 @@ import { ChatInput } from '../components';
 import useStateRef from '../helpers/useStateRef';
 
 function PageHome() {
-  const [username, setUsername, nameref] = useStateRef('Guest');
   const [messageGroups, setMessageGroups, ref] = useStateRef([]);
+  const [profile, setProfile, profileRef] = useStateRef();
   const socket = useRef();
 
   const handleChat = (message) => {
-    if (message.author === nameref.current) {
+    if (message.author === profileRef.current?.name) {
       message = {
         ...message,
         self: true
       };
     }
-    console.log('received message', message, username);
     let msgGroups = ref.current;
 
     let lastGroup = msgGroups[msgGroups.length - 1];
@@ -35,12 +34,17 @@ function PageHome() {
     }
   };
 
-  const sendMessage = (message) => {
-    socket.current.emit('message', {
-      author: username,
-      nameColor: 'red',
-      message
-    });
+  const handleSend = (text) => {
+    if (profile) {
+      socket.current.emit('message', {
+        message: text
+      });
+    } else {
+      socket.current.emit('login', {
+        name: text,
+        nameColor: 'red' // Might add a color selector in the future.
+      });
+    }
   };
 
   useEffect(() => {
@@ -49,6 +53,14 @@ function PageHome() {
     // an option to setup a proxy. In web-dev-server the socket proxy doesn't work. Requires further research.
     socket.current = io(':8080');
     socket.current.on('message', handleChat);
+    socket.current.on('profile', setProfile);
+    socket.current.on('disconnect', () =>
+      handleChat({
+        author: 'Server',
+        nameColor: 'yellow',
+        message: 'You have been disconnected from the chat.'
+      })
+    );
     return () => {
       socket.current.close();
     };
@@ -59,7 +71,12 @@ function PageHome() {
       ${ChatArea({
         messageGroups
       })}
-      ${ChatInput({ onSend: sendMessage, onNameChange: setUsername, username })}
+      ${ChatInput({
+        onSend: handleSend,
+        placeholder: profile
+          ? 'Send Message'
+          : 'Enter your username in order to join the chat.'
+      })}
     </div>
   `;
 }
