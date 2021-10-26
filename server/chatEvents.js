@@ -47,7 +47,7 @@ const setupChatEvents = (io) => {
 
       chatter = new Chatter(socket, name, color);
       chatters[name] = chatter;
-      setupChat(io, socket, chatter, sendServerMsg);
+      setupChat(io, socket, chatter, sendServerMsg, sendClientMsg);
 
       socket.emit('profile', chatter.getProfile());
       sendServerMsg(`Please welcome ${chatter.name}!`);
@@ -64,7 +64,7 @@ const setupChatEvents = (io) => {
   });
 };
 
-const setupChat = (io, socket, chatter, sendServerMsg) => {
+const setupChat = (io, socket, chatter, sendServerMsg, sendClientMsg) => {
   socket.on('message', async (message) => {
     if (!message.message || message.message.length <= 0) return;
     if (message.message.startsWith('/')) {
@@ -73,7 +73,8 @@ const setupChat = (io, socket, chatter, sendServerMsg) => {
         socket,
         chatter,
         chatters,
-        sendServerMsg
+        sendServerMsg,
+        sendClientMsg
       });
       return;
     }

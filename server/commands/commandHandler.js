@@ -27,9 +27,9 @@ const handleCommand = (data, context) => {
   // Add a way to register new lines in the chat bubbles
   const help = () => {
     let res = '';
-    res += `Command list:`;
+    res += `Command list: \n`;
     for (let command in commands) {
-      res += `/${command} - ${commands[command].description}`;
+      res += `/${command} - ${commands[command].description} \n`;
     }
     sendServerMsg(res);
   };

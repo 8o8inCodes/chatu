@@ -35,7 +35,7 @@ function PageHome() {
   };
 
   const handleSend = (text) => {
-    if (text || text.length <= 0) return;
+    if (!text || text.length <= 0) return;
     if (profile) {
       socket.current.emit('message', {
         message: text
