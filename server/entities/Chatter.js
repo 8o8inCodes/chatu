@@ -1,4 +1,15 @@
+/**
+ * Chatter class represents a chat client/user
+ * Contains a minigame "Bits" with upgrades.
+ */
 class Chatter {
+  /**
+   * Constructor for the chatter class
+   * Setups an initial upgrade state.
+   * @param {Socket} socket - Socket client
+   * @param {String} name - Client/User name
+   * @param {String} nameColor - Name tag's color
+   */
   constructor(socket, name, nameColor) {
     this.name = name;
     this.nameColor = nameColor || 'red';
@@ -16,6 +27,10 @@ class Chatter {
     };
   }
 
+  /**
+   * Builds a safe object without any private information.
+   * @returns {Object} - Safe to send object to othe client.
+   */
   getProfile() {
     return {
       name: this.name,
@@ -24,11 +39,25 @@ class Chatter {
     };
   }
 
+  /**
+   * Increases Bits using the upgrades "Per Message"
+   */
   increaseBits() {
-    this.bits += this.upgrades.chatter.bitsPerMessage;
-    this.bitsGathered++;
+    for (const upgradeIndex in this.upgrades) {
+      const upgrade = this.upgrades[upgradeIndex];
+      if (upgrade.bitsPerMessage) {
+        this.bits += upgrade.bitsPerMessage;
+        this.bitsGathered += upgrade.bitsPerMessage;
+      }
+    }
   }
 
+  /**
+   * Upgrade provided upgrade.
+   * Deducts the upgrade's price from the user's current bits
+   * @param {String} upgradeName - Upgrade's name to purchase
+   * @returns {String} - Output message
+   */
   purchaseUpgrade(upgradeName) {
     const upgrade = this.upgrades[upgradeName];
     if (!upgrade) return 'Such upgrade is not available';
@@ -41,11 +70,11 @@ class Chatter {
     return `@${this.name} ${upgrade.name} upgraded successfully. Current bits: ${this.bits}`;
   }
 
-  update() {
-    // this.bits
-  }
-
-  cleanup() {}
+  /**
+   * Everytime this called, should upgrade "Bits Per Second"
+   * in the future
+   */
+  update() {}
 }
 
 module.exports = Chatter;

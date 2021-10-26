@@ -56,7 +56,6 @@ const setupChatEvents = (io) => {
     socket.on('disconnect', () => {
       // remove chatter from the chatters object
       if (!chatter) return;
-      chatter.cleanup();
       let { [chatter.name]: omit, ...res } = chatters;
       chatters = res;
       sendServerMsg(`${chatter.name} has been disconnected!`);

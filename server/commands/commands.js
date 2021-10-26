@@ -1,3 +1,4 @@
+// Setup all the commands here
 module.exports = {
   bits: {
     description: 'Shows your current bits.',

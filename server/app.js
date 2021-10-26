@@ -22,7 +22,10 @@ const server = app.listen(port);
 console.log(`Listening on port ${port}`);
 
 let socketOptions = {};
-if (process.env.ENVIRONMET !== 'production') {
+
+// If environment isn't in production, then disable cors in order
+// to develop everything faster with hot reloading.
+if (process.env.ENVIRONMENT !== 'production') {
   console.log('Disabling socket cors');
   socketOptions = {
     cors: {
