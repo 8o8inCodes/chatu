@@ -105,6 +105,7 @@ input {
 
 .messageContainer p label {
   display: block;
+  white-space: pre-line;
 }
 
 @keyframes slideLeft {

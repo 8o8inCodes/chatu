@@ -20,18 +20,18 @@ export function Message({
       <p>
         ${message.author &&
         html`
-          <label class="messageName" style="color: ${message.nameColor};">
-            ${message.author}
-          </label>
+          <label class="messageName" style="color: ${message.nameColor};"
+            >${message.author}</label
+          >
         `}
-        <label>
-          ${message.message.split(' ').map((word) => {
+        <label
+          >${message.message.split(' ').map((word) => {
             if (word.startsWith('@')) {
               return html`<span class="mention">${word} </span>`;
             }
             return `${word} `;
-          })}
-        </label>
+          })}</label
+        >
       </p>
     </div>
   `;

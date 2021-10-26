@@ -36,6 +36,7 @@ const setupChatEvents = (io) => {
 
       if (!/^[a-zA-Z\-0-9]+$/.test(name)) {
         sendClientMsg('Error: Invalid Username');
+        return;
       }
       // In real life I would use an authentication system instead
       // of using just the name as a unique identifier.
@@ -46,7 +47,7 @@ const setupChatEvents = (io) => {
 
       chatter = new Chatter(socket, name, color);
       chatters[name] = chatter;
-      setupChat(io, socket, chatter, sendServerMsg);
+      setupChat(io, socket, chatter, sendServerMsg, sendClientMsg);
 
       socket.emit('profile', chatter.getProfile());
       sendServerMsg(`Please welcome ${chatter.name}!`);
@@ -63,15 +64,17 @@ const setupChatEvents = (io) => {
   });
 };
 
-const setupChat = (io, socket, chatter, sendServerMsg) => {
+const setupChat = (io, socket, chatter, sendServerMsg, sendClientMsg) => {
   socket.on('message', async (message) => {
+    if (!message.message || message.message.length <= 0) return;
     if (message.message.startsWith('/')) {
       handleCommand(message.message, {
         io,
         socket,
         chatter,
         chatters,
-        sendServerMsg
+        sendServerMsg,
+        sendClientMsg
       });
       return;
     }
