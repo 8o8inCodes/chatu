@@ -10,6 +10,15 @@ let chatters = {
   [bot.name]: bot
 };
 
+const clock = setInterval(() => {
+  for (const chatterIndex in chatters) {
+    const chatter = chatters[chatterIndex];
+    if (chatter && chatter.update) {
+      chatter.update();
+    }
+  }
+}, 1000);
+
 const setupChatEvents = (io) => {
   const sendServerMsg = (msg) => {
     io.emit('message', {

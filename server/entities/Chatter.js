@@ -22,7 +22,22 @@ class Chatter {
         name: 'chatter',
         description: 'Gets you bits for every message',
         bitsPerMessage: 1,
-        upgradeCost: 5
+        upgradeCost: 5,
+        bitsPerMessageAfterUpgrade: 2
+      },
+      autotyper: {
+        name: 'autotyper',
+        description: 'Gets you bits by typing into the void',
+        bitsPerSecond: 0,
+        upgradeCost: 10,
+        bitsPerSecondAfterUpgrade: 1
+      },
+      machinetyper: {
+        name: 'machinetyper',
+        description: 'Machine that types much faster into the void',
+        bitsPerSecond: 0,
+        upgradeCost: 15,
+        bitsPerSecondAfterUpgrade: 3
       }
     };
   }
@@ -64,8 +79,16 @@ class Chatter {
     if (this.bits - upgrade.upgradeCost < 0)
       return "You don't have enough bits";
     this.bits -= upgrade.upgradeCost;
-    if (upgrade.bitsPerMessage) upgrade.bitsPerMessage *= 2;
-    if (upgrade.bitsPerSecond) upgrade.bitsPerSecond *= 2;
+    if (upgrade.bitsPerMessageAfterUpgrade) {
+      upgrade.bitsPerMessage = upgrade.bitsPerMessageAfterUpgrade;
+      upgrade.bitsPerMessageAfterUpgrade *= 2;
+    }
+
+    if (upgrade.bitsPerSecondAfterUpgrade) {
+      upgrade.bitsPerSecond = upgrade.bitsPerSecondAfterUpgrade;
+      upgrade.bitsPerSecondAfterUpgrade *= 2;
+    }
+
     upgrade.upgradeCost *= 3;
     return `@${this.name} ${upgrade.name} upgraded successfully. Current bits: ${this.bits}`;
   }
@@ -74,7 +97,15 @@ class Chatter {
    * Everytime this called, should upgrade "Bits Per Second"
    * in the future
    */
-  update() {}
+  update() {
+    for (const upgradeIndex in this.upgrades) {
+      const upgrade = this.upgrades[upgradeIndex];
+      if (upgrade.bitsPerSecond) {
+        this.bits += upgrade.bitsPerSecond;
+        this.bitsGathered += upgrade.bitsPerMessage;
+      }
+    }
+  }
 }
 
 module.exports = Chatter;

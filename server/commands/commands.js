@@ -14,11 +14,13 @@ module.exports = {
         message += '============== \n';
         const upgrade = chatter.upgrades[upgradeIndex];
         message += `${upgrade.name} - ${upgrade.description} \n`;
-        if (upgrade.bitsPerMessage) {
+        if (upgrade.bitsPerMessageAfterUpgrade) {
           message += `Bits per message: ${upgrade.bitsPerMessage} \n`;
+          message += `Bits per message after upgrade: ${upgrade.bitsPerMessageAfterUpgrade} \n`;
         }
-        if (upgrade.pointsPerSecond) {
-          message += `Bits per second: ${upgrade.pointsPerSecond} \n`;
+        if (upgrade.bitsPerSecondAfterUpgrade) {
+          message += `Bits per second: ${upgrade.bitsPerSecond} \n`;
+          message += `Bits per second after upgrade: ${upgrade.bitsPerSecondAfterUpgrade} \n`;
         }
         message += `Next upgrade costs: ${upgrade.upgradeCost} bits\n`;
       }
