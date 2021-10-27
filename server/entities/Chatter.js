@@ -94,8 +94,8 @@ class Chatter {
   }
 
   /**
-   * Everytime this called, should upgrade "Bits Per Second"
-   * in the future
+   * Everytime this called, will upgrade all the "Bits Per Second"
+   * upgrades
    */
   update() {
     for (const upgradeIndex in this.upgrades) {

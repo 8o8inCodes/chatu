@@ -10,7 +10,8 @@ let chatters = {
   [bot.name]: bot
 };
 
-const clock = setInterval(() => {
+// Updates all the chatters that contain an update function
+setInterval(() => {
   for (const chatterIndex in chatters) {
     const chatter = chatters[chatterIndex];
     if (chatter && chatter.update) {
@@ -19,6 +20,14 @@ const clock = setInterval(() => {
   }
 }, 1000);
 
+/**
+ * Sets up the following chat events:
+ * connection - Whenever there is a new socket connection
+ * - login - Whenever socket client sent login information
+ * - - message - Whenever a logged user sends a chat message
+ * disconnect - Whenever socket disconnects, it cleans everything related to the client up.
+ * @param {SocketServer} io - Socket server
+ */
 const setupChatEvents = (io) => {
   const sendServerMsg = (msg) => {
     io.emit('message', {
